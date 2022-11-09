@@ -32,4 +32,10 @@ const find = async (taskId) => {
   return subTasks.map((task) => cleanData(task));
 };
 
-module.exports = { SubTask, create, find };
+const findById = async (taskId) => {
+  const subTask = await SubTask.findById(taskId);
+
+  return cleanData(subTask);
+};
+
+module.exports = { SubTask, create, find, findById };
