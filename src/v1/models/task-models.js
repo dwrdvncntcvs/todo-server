@@ -27,7 +27,7 @@ const create = async ({ title, description, author }) => {
 };
 
 const find = async () => {
-  const tasks = await Task.find();
+  const tasks = await Task.find({ deletedAt: null });
 
   return tasks.map((task) => cleanData(task));
 };
@@ -38,8 +38,18 @@ const findById = async (taskId) => {
   return cleanData(task);
 };
 
+const remove = async (taskId) => {
+  const task = await Task.findOneAndUpdate(
+    { _id: taskId },
+    { deletedAt: new Date() }
+  );
+
+  return cleanData(task);
+};
+
 module.exports = {
   create,
   find,
   findById,
+  remove,
 };
