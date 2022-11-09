@@ -2,7 +2,9 @@ const {
   create: createSubTask,
   find: findSubTasks,
   findById: findSubTask,
+  update: updateSubTask,
 } = require("../models/subTask-models");
+const { update } = require("../models/task-models");
 
 const addSubTask = async (req, res, next) => {
   const { taskId } = req.params;
@@ -42,8 +44,23 @@ const getSubTask = async (req, res) => {
   }
 };
 
+const modifySubTask = async (req, res, next) => {
+  const { subTaskId } = req.params;
+  const { details } = req.body;
+
+  try {
+    await updateSubTask({ subTaskId }, { details });
+
+    return res.status(201).send({ msg: "Sub Task Updated" });
+  } catch (err) {
+    console.log(err);
+    next({ status: 500, message: err.message });
+  }
+};
+
 module.exports = {
   addSubTask,
   getSubTasks,
   getSubTask,
+  modifySubTask,
 };

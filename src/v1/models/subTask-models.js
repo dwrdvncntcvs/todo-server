@@ -38,4 +38,13 @@ const findById = async (taskId) => {
   return cleanData(subTask);
 };
 
-module.exports = { SubTask, create, find, findById };
+const update = async ({ subTaskId }, subTaskData) => {
+  const subTask = await SubTask.findOneAndUpdate(
+    { _id: subTaskId },
+    { ...subTaskData }
+  );
+
+  return cleanData(subTask);
+};
+
+module.exports = { SubTask, create, find, findById, update };
