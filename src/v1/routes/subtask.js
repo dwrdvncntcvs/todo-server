@@ -4,6 +4,7 @@ const {
   getSubTasks,
   getSubTask,
   modifySubTask,
+  deleteSubTask,
 } = require("../controllers/subTask-controller");
 
 const routes = express.Router();
@@ -15,5 +16,7 @@ routes.get("/task/:taskId", getSubTasks);
 routes.get("/:subTaskId", getSubTask);
 
 routes.put("/:subTaskId", modifySubTask);
+
+routes.delete("/:subTaskId", deleteSubTask);
 
 module.exports = routes;

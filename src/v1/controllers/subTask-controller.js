@@ -3,6 +3,7 @@ const {
   find: findSubTasks,
   findById: findSubTask,
   update: updateSubTask,
+  remove: removeSubTask,
 } = require("../models/subTask-models");
 const { update } = require("../models/task-models");
 
@@ -31,7 +32,7 @@ const getSubTasks = async (req, res, next) => {
   }
 };
 
-const getSubTask = async (req, res) => {
+const getSubTask = async (req, res, next) => {
   const { subTaskId } = req.params;
 
   try {
@@ -58,9 +59,23 @@ const modifySubTask = async (req, res, next) => {
   }
 };
 
+const deleteSubTask = async (req, res, next) => {
+  const { subTaskId } = req.params;
+
+  try {
+    await removeSubTask(subTaskId);
+
+    return res.status(201).send({ msg: "Sub Task Deleted" });
+  } catch (err) {
+    console.log(err);
+    next({ status: 500, message: err.message });
+  }
+};
+
 module.exports = {
   addSubTask,
   getSubTasks,
   getSubTask,
   modifySubTask,
+  deleteSubTask,
 };

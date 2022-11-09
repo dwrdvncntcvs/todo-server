@@ -27,13 +27,13 @@ const create = async (subTaskData) => {
 };
 
 const find = async (taskId) => {
-  const subTasks = await SubTask.find({ taskId });
+  const subTasks = await SubTask.find({ taskId, deletedAt: null });
 
   return subTasks.map((task) => cleanData(task));
 };
 
-const findById = async (taskId) => {
-  const subTask = await SubTask.findById(taskId);
+const findById = async (subTaskId) => {
+  const subTask = await SubTask.findOne({ _id: subTaskId, deletedAt: null });
 
   return cleanData(subTask);
 };
@@ -47,4 +47,11 @@ const update = async ({ subTaskId }, subTaskData) => {
   return cleanData(subTask);
 };
 
-module.exports = { SubTask, create, find, findById, update };
+const remove = async (subTaskId) => {
+  return await SubTask.findOneAndUpdate(
+    { _id: subTaskId },
+    { deletedAt: new Date() }
+  );
+};
+
+module.exports = { SubTask, create, find, findById, update, remove };
