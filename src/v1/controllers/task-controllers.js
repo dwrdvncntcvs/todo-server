@@ -32,15 +32,8 @@ const createNewTask = async (req, res) => {
 };
 
 const getTask = async (req, res, next) => {
-  const { taskId } = req.params;
-
-  try {
-    const task = await findTask(taskId);
-    return res.status(200).send({ task });
-  } catch (err) {
-    console.log(err);
-    next({ status: 404, message: err.message });
-  }
+  const task = req.task;
+  return res.status(200).send({ task });
 };
 
 const deleteTask = async (req, res, next) => {

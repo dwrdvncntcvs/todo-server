@@ -6,6 +6,7 @@ const {
   deleteTask,
   modifyTask,
 } = require("../controllers/task-controllers");
+const { checkTaskExistence } = require("../middlewares/task-middlewares");
 
 const routes = express.Router();
 
@@ -13,10 +14,10 @@ routes.get("/", getTasks);
 
 routes.post("/", createNewTask);
 
-routes.get("/:taskId", getTask);
+routes.get("/:taskId", [checkTaskExistence], getTask);
 
-routes.delete("/:taskId", deleteTask);
+routes.delete("/:taskId", [checkTaskExistence], deleteTask);
 
-routes.put("/:taskId", modifyTask);
+routes.put("/:taskId", [checkTaskExistence], modifyTask);
 
 module.exports = routes;

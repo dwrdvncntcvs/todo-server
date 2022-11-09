@@ -6,7 +6,6 @@ const {
   update: updateSubTask,
   remove: removeSubTask,
 } = require("../models/subTask-models");
-const { update } = require("../models/task-models");
 
 const addSubTask = async (req, res, next) => {
   const { taskId } = req.params;
