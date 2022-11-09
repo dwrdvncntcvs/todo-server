@@ -1,10 +1,10 @@
 const express = require("express");
-const todo = require("./todo");
+const task = require("./task");
 const subtasks = require("./subtask");
 
 const routes = express.Router();
 
-routes.use("/todo", todo);
+routes.use("/task", task);
 routes.use("/subtask", subtasks);
 
 module.exports = routes;
