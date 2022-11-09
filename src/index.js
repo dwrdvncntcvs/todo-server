@@ -17,6 +17,11 @@ const displayAppVersions = () => {
   }
 };
 
+app.use((err, req, res, next) => {
+  console.log(err);
+  if (err) return res.status(err.status).send({ msg: err.message });
+});
+
 app.listen(PORT, () => {
   console.log("SERVER UP -> PORT:", PORT);
   displayAppVersions();
