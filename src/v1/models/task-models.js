@@ -1,10 +1,29 @@
 const { Schema, model } = require("mongoose");
 const { cleanData } = require("../../utils/helpers");
 
+const validationMessage = {
+  title: {
+    required: { status: 403, message: "Title is required" },
+    unique: { status: 403, message: "Title has been used already" },
+  },
+  author: {
+    required: { status: 403, message: "Author is required" },
+  },
+};
+
 const taskSchema = new Schema({
-  title: String,
-  description: String,
-  author: String,
+  title: {
+    type: String,
+    required: [true, JSON.stringify(validationMessage.title.required)],
+    unique: true,
+  },
+  description: {
+    type: String,
+  },
+  author: {
+    type: String,
+    required: [true, JSON.stringify(validationMessage.author.required)],
+  },
   createdAt: Date,
   updatedAt: Date,
   deletedAt: Date,

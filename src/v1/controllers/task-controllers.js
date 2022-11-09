@@ -1,3 +1,4 @@
+const { generateErrorMessage } = require("../../utils/helpers");
 const {
   find: findTasks,
   create: createTask,
@@ -24,8 +25,9 @@ const createNewTask = async (req, res) => {
 
     return res.status(201).send(task);
   } catch (err) {
-    console.log(err);
-    return res.status(500).send({ msg: err.message });
+    const { status, message } = generateErrorMessage(err);
+
+    return res.status(status).send({ msg: message });
   }
 };
 
@@ -62,8 +64,9 @@ const modifyTask = async (req, res, next) => {
 
     return res.status(201).send({ msg: "Task updated" });
   } catch (err) {
-    console.log(err);
-    next({ status: 500, message: err.message });
+    const { status, message } = generateErrorMessage(err);
+
+    next({ status, message });
   }
 };
 
