@@ -1,4 +1,7 @@
-const { create: createSubTask } = require("../models/subTask-models");
+const {
+  create: createSubTask,
+  find: findSubTasks,
+} = require("../models/subTask-models");
 
 const addSubTask = async (req, res, next) => {
   const { taskId } = req.params;
@@ -13,6 +16,19 @@ const addSubTask = async (req, res, next) => {
   }
 };
 
+const getSubTasks = async (req, res, next) => {
+  const { taskId } = req.params;
+
+  try {
+    const subTasks = await findSubTasks(taskId);
+
+    return res.status(200).send({ subTasks });
+  } catch (err) {
+    return next({ status: 500, message: err.message });
+  }
+};
+
 module.exports = {
   addSubTask,
+  getSubTasks,
 };

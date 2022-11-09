@@ -26,4 +26,10 @@ const create = async (subTaskData) => {
   return cleanData(subTask);
 };
 
-module.exports = { SubTask, create };
+const find = async (taskId) => {
+  const subTasks = await SubTask.find({ taskId });
+
+  return subTasks.map((task) => cleanData(task));
+};
+
+module.exports = { SubTask, create, find };
