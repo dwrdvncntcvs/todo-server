@@ -38,6 +38,10 @@ const findById = async (taskId) => {
   return cleanData(task);
 };
 
+const update = async ({ taskId }, { title, description }) => {
+  return await Task.findOneAndUpdate({ _id: taskId }, { title, description });
+};
+
 const remove = async (taskId) => {
   const task = await Task.findOneAndUpdate(
     { _id: taskId },
@@ -52,4 +56,5 @@ module.exports = {
   find,
   findById,
   remove,
+  update,
 };

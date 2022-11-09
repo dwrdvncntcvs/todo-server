@@ -3,6 +3,7 @@ const {
   create: createTask,
   findById: findTask,
   remove: removeTask,
+  update: updateTask,
 } = require("../models/task-models");
 
 const getTasks = async (req, res) => {
@@ -21,7 +22,7 @@ const createNewTask = async (req, res) => {
   try {
     const task = await createTask({ title, description, author });
 
-    return res.status(200).send(task);
+    return res.status(201).send(task);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ msg: err.message });
@@ -52,9 +53,24 @@ const deleteTask = async (req, res, next) => {
   }
 };
 
+const modifyTask = async (req, res, next) => {
+  const { taskId } = req.params;
+  const { title, description } = req.body;
+
+  try {
+    await updateTask({ taskId }, { description, title });
+
+    return res.status(201).send({ msg: "Task updated" });
+  } catch (err) {
+    console.log(err);
+    next({ status: 500, message: err.message });
+  }
+};
+
 module.exports = {
   getTasks,
   getTask,
   createNewTask,
   deleteTask,
+  modifyTask,
 };
