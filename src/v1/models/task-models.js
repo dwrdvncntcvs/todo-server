@@ -52,6 +52,7 @@ const remove = async (taskId) => {
 };
 
 module.exports = {
+  Task,
   create,
   find,
   findById,
