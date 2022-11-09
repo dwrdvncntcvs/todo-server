@@ -1,9 +1,24 @@
 const { Schema, model } = require("mongoose");
 const { cleanData } = require("../../utils/helpers");
 
+const validation = {
+  taskId: {
+    required: { status: 403, message: "Task ID is required" },
+  },
+  details: {
+    required: { status: 403, message: "Task details is required" },
+  },
+};
+
 const subTaskSchema = new Schema({
-  taskId: String,
-  details: String,
+  taskId: {
+    type: String,
+    required: [true, JSON.stringify(validation.taskId.required)],
+  },
+  details: {
+    type: String,
+    required: [true, JSON.stringify(validation.details.required)],
+  },
   isComplete: Boolean,
   isPriority: Boolean,
   createdAt: Date,
@@ -13,9 +28,10 @@ const subTaskSchema = new Schema({
 
 const SubTask = model("SubTask", subTaskSchema);
 
-const create = async (subTaskData) => {
+const create = async ({ taskId, details }) => {
   const subTask = await SubTask.create({
-    ...subTaskData,
+    taskId,
+    details,
     isComplete: false,
     isPriority: false,
     createdAt: new Date(),
@@ -38,10 +54,11 @@ const findById = async (subTaskId) => {
   return cleanData(subTask);
 };
 
-const update = async ({ subTaskId }, subTaskData) => {
+const update = async ({ subTaskId }, { details }) => {
   const subTask = await SubTask.findOneAndUpdate(
     { _id: subTaskId },
-    { ...subTaskData }
+    { details },
+    { runValidators: true }
   );
 
   return cleanData(subTask);

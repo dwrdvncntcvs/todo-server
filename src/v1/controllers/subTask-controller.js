@@ -1,3 +1,4 @@
+const { generateErrorMessage } = require("../../utils/helpers");
 const {
   create: createSubTask,
   find: findSubTasks,
@@ -16,7 +17,8 @@ const addSubTask = async (req, res, next) => {
     return res.status(201).send({ subTask });
   } catch (err) {
     console.log(err);
-    next({ status: 500, message: err.message });
+    const { status, message } = generateErrorMessage(err);
+    next({ status, message });
   }
 };
 
@@ -54,8 +56,9 @@ const modifySubTask = async (req, res, next) => {
 
     return res.status(201).send({ msg: "Sub Task Updated" });
   } catch (err) {
-    console.log(err);
-    next({ status: 500, message: err.message });
+    const { status, message } = generateErrorMessage(err);
+
+    next({ status, message });
   }
 };
 
