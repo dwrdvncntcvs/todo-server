@@ -2,7 +2,6 @@ const { generateErrorMessage } = require("../../utils/helpers");
 const {
   find: findTasks,
   create: createTask,
-  findById: findTask,
   remove: removeTask,
   update: updateTask,
 } = require("../models/task-models");
