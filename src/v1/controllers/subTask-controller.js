@@ -2,7 +2,6 @@ const { generateErrorMessage } = require("../../utils/helpers");
 const {
   create: createSubTask,
   find: findSubTasks,
-  findById: findSubTask,
   update: updateSubTask,
   remove: removeSubTask,
 } = require("../models/subTask-models");
@@ -34,10 +33,8 @@ const getSubTasks = async (req, res, next) => {
 };
 
 const getSubTask = async (req, res, next) => {
-  const { subTaskId } = req.params;
-
   try {
-    const subTask = await findSubTask(subTaskId);
+    const subTask = req.subTask;
 
     return res.status(200).send({ subTask });
   } catch (err) {

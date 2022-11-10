@@ -6,17 +6,19 @@ const {
   modifySubTask,
   deleteSubTask,
 } = require("../controllers/subTask-controller");
+const { checkSubTaskExistence } = require("../middlewares/subTask-middlewares");
+const { checkTaskExistence } = require("../middlewares/task-middlewares");
 
 const routes = express.Router();
 
-routes.post("/task/:taskId", addSubTask);
+routes.post("/task/:taskId", [checkTaskExistence], addSubTask);
 
-routes.get("/task/:taskId", getSubTasks);
+routes.get("/task/:taskId", [checkTaskExistence], getSubTasks);
 
-routes.get("/:subTaskId", getSubTask);
+routes.get("/:subTaskId", [checkSubTaskExistence], getSubTask);
 
-routes.put("/:subTaskId", modifySubTask);
+routes.put("/:subTaskId", [checkSubTaskExistence], modifySubTask);
 
-routes.delete("/:subTaskId", deleteSubTask);
+routes.delete("/:subTaskId", [checkSubTaskExistence], deleteSubTask);
 
 module.exports = routes;

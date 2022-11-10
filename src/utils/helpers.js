@@ -7,16 +7,11 @@ const cleanData = (data) => {
 };
 
 const generateErrorMessage = (err) => {
+  const errorMessage = err.message;
   let errorData = {
     status: 0,
     message: "",
   };
-
-  console.log(err);
-
-  const errorMessage = err.message;
-
-  console.log(err.code);
 
   if (!err.code) {
     const C_I = errorMessage.indexOf("{");
