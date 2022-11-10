@@ -1,4 +1,6 @@
 const { Schema, model } = require("mongoose");
+const { genSalt, hash } = require("bcrypt");
+const { cleanData } = require("../../../../utils/helpers");
 
 const validation = {
   first_name: {
@@ -35,8 +37,29 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.pre("save", async function (next) {
+  const user = this;
+
+  if (!user.isModified()) next();
+
+  try {
+    const salt = await genSalt(10, "a");
+    const hashPassword = await hash(user.password, salt);
+    user.password = hashPassword;
+    next();
+  } catch (err) {
+    next({ status: 401, message: err.message });
+  }
+});
+
 const User = model("User", userSchema);
+
+const create = async ({ first_name, last_name, username, password }) => {
+  const user = await User.create({ first_name, last_name, username, password });
+  return cleanData(user);
+};
 
 module.exports = {
   User,
+  create,
 };
