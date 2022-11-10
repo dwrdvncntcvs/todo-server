@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { dbConnect } = require("./database/v1/mongodb/config/mongodb");
 const v1Routes = require("./v1/routes");
 const { versions } = require("./variables");
@@ -6,6 +7,7 @@ const { versions } = require("./variables");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/v1", v1Routes);
