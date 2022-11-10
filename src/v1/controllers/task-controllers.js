@@ -4,6 +4,7 @@ const {
   create: createTask,
   remove: removeTask,
   update: updateTask,
+  removePermanently: removeTaskPermanently,
 } = require("../models/task-models");
 
 const getTasks = async (req, res) => {
@@ -37,10 +38,16 @@ const getTask = async (req, res, next) => {
 
 const deleteTask = async (req, res, next) => {
   const { taskId } = req.params;
+  const { permanent = "false" } = req.query;
 
   try {
-    const task = await removeTask(taskId);
-    return res.status(200).send(task);
+    if (permanent === "false") {
+      const task = await removeTask(taskId);
+      return res.status(200).send(task);
+    } else {
+      await removeTaskPermanently(taskId);
+      return res.status(200).send({ msg: "Task delete permanently" });
+    }
   } catch (err) {
     console.log(err);
     next({ status: 500, msg: err.message });

@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { cleanData } = require("../../utils/helpers");
+const { SubTask } = require("./subTask-models");
 
 const validationMessage = {
   title: {
@@ -70,6 +71,12 @@ const remove = async (taskId) => {
   return cleanData(task);
 };
 
+const removePermanently = async (taskId) => {
+  await Task.deleteOne({ _id: taskId });
+  await SubTask.deleteMany({ taskId });
+  return;
+};
+
 module.exports = {
   Task,
   create,
@@ -77,4 +84,5 @@ module.exports = {
   findById,
   remove,
   update,
+  removePermanently,
 };
