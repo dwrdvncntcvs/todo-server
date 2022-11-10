@@ -12,8 +12,8 @@ app.use("/v1", v1Routes);
 
 const displayAppVersions = () => {
   console.log("API VERSIONS: ");
-  for (let i = 0; i < versions.length; i++) {
-    console.log(`- ${versions[i]}`);
+  for (let version in versions) {
+    console.log(`- ${versions[version]}`);
   }
 };
 
