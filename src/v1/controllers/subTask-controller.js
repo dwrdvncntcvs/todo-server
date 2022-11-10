@@ -4,7 +4,7 @@ const {
   find: findSubTasks,
   update: updateSubTask,
   remove: removeSubTask,
-} = require("../models/subTask-models");
+} = require("../../database/v1/mongodb/models/subTask-models");
 
 const addSubTask = async (req, res, next) => {
   const { taskId } = req.params;

@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const { cleanData } = require("../../utils/helpers");
+const { cleanData } = require("../../../../utils/helpers");
 const { SubTask } = require("./subTask-models");
 
 const validationMessage = {

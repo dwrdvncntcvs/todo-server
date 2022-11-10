@@ -1,4 +1,6 @@
-const { findById: findSubTask } = require("../models/subTask-models");
+const {
+  findById: findSubTask,
+} = require("../../database/v1/mongodb/models/subTask-models");
 
 const checkSubTaskExistence = async (req, res, next) => {
   const { subTaskId } = req.params;

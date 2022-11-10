@@ -5,7 +5,7 @@ const {
   remove: removeTask,
   update: updateTask,
   removePermanently: removeTaskPermanently,
-} = require("../models/task-models");
+} = require("../../database/v1/mongodb/models/task-models");
 
 const getTasks = async (req, res) => {
   try {

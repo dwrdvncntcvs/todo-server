@@ -1,4 +1,6 @@
-const { findById: findTask } = require("../models/task-models");
+const {
+  findById: findTask,
+} = require("../../database/v1/mongodb/models/task-models");
 
 const checkTaskExistence = async (req, res, next) => {
   const { taskId } = req.params;

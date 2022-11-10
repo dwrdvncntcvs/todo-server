@@ -1,5 +1,5 @@
 const express = require("express");
-const { dbConnect } = require("./v1/config/mongodb");
+const { dbConnect } = require("./database/v1/mongodb/config/mongodb");
 const v1Routes = require("./v1/routes");
 const { versions } = require("./variables");
 
