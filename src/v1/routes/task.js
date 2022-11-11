@@ -7,10 +7,11 @@ const {
   modifyTask,
 } = require("../controllers/task-controllers");
 const { checkTaskExistence } = require("../middlewares/task-middlewares");
+const { authenticateUser } = require("../middlewares/user-middlewares");
 
 const routes = express.Router();
 
-routes.get("/", getTasks);
+routes.get("/", [authenticateUser], getTasks);
 
 routes.post("/", createNewTask);
 

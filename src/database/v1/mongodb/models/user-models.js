@@ -65,6 +65,10 @@ const findByUsername = async (username) => {
   return user ? cleanData(user) : null;
 };
 
+const find = async (id) => {
+  return await User.findOne({ _id: id });
+};
+
 const comparePassword = async ({ storedPassword, password }) => {
   return await compare(password, storedPassword);
 };
@@ -74,4 +78,5 @@ module.exports = {
   create,
   findByUsername,
   comparePassword,
+  find,
 };
