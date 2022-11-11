@@ -35,7 +35,7 @@ const authorizeUser = async (req, res) => {
   const refresh_token = sign(payload, SECRET_KEY, { expiresIn: "365d" });
   const token = sign(payload, SECRET_KEY, { expiresIn: "24h" });
 
-  req.cookie("jwt", refresh_token, {
+  res.cookie("jwt", refresh_token, {
     httpOnly: true,
     sameSite: "None",
     secure: true,
