@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const { genSalt, hash } = require("bcrypt");
+const { genSalt, hash, compare } = require("bcrypt");
 const { cleanData } = require("../../../../utils/helpers");
 
 const validation = {
@@ -59,7 +59,19 @@ const create = async ({ first_name, last_name, username, password }) => {
   return cleanData(user);
 };
 
+const findByUsername = async (username) => {
+  const user = await User.findOne({ username });
+
+  return user ? cleanData(user) : null;
+};
+
+const comparePassword = async ({ storedPassword, password }) => {
+  return await compare(password, storedPassword);
+};
+
 module.exports = {
   User,
   create,
+  findByUsername,
+  comparePassword,
 };
