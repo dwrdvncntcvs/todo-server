@@ -42,7 +42,6 @@ const authorizeUser = async (req, res) => {
     maxAge: 24 * 60 * 60 * 1000,
   });
 
-  console.log(req.cookies);
   return res.status(200).send({ token });
 };
 
