@@ -1,4 +1,6 @@
 const express = require("express");
+const { checkTaskExistence } = require("../../middlewares/task-middlewares");
+const { authenticateUser } = require("../../middlewares/user-middlewares");
 const {
   getTasks,
   createNewTask,
@@ -6,8 +8,7 @@ const {
   deleteTask,
   modifyTask,
 } = require("../controllers/task-controllers");
-const { checkTaskExistence } = require("../middlewares/task-middlewares");
-const { authenticateUser } = require("../middlewares/user-middlewares");
+
 
 const routes = express.Router();
 

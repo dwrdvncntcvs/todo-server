@@ -1,10 +1,10 @@
-const {
-  findByUsername,
-  comparePassword,
-  find: findUserById,
-} = require("../../database/v1/mongodb/models/user-models");
 const { verify } = require("jsonwebtoken");
-const { SECRET_KEY } = require("../../variables");
+const {
+  comparePassword,
+  findByUsername,
+  find: findUserById,
+} = require("../database/v1/mongodb/models/user-models");
+const { SECRET_KEY } = require("../variables");
 
 const checkUserExistence = async (req, res, next) => {
   const { username } = req.body;

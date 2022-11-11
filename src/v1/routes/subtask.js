@@ -1,13 +1,15 @@
 const express = require("express");
 const {
+  checkSubTaskExistence,
+} = require("../../middlewares/subTask-middlewares");
+const { checkTaskExistence } = require("../../middlewares/task-middlewares");
+const {
   addSubTask,
   getSubTasks,
   getSubTask,
   modifySubTask,
   deleteSubTask,
 } = require("../controllers/subTask-controller");
-const { checkSubTaskExistence } = require("../middlewares/subTask-middlewares");
-const { checkTaskExistence } = require("../middlewares/task-middlewares");
 
 const routes = express.Router();
 
